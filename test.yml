@@ -1,0 +1,6 @@
+- hosts: fedora
+  remote_user: vishal
+  become: yes
+  become_user: root
+  roles:
+    - install_tensorflow

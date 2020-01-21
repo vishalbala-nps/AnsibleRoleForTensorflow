@@ -1,0 +1,25 @@
+---
+# tasks file for install_tensorflow
+- name: Install Python3 and pip
+  apt:
+    pkg:
+      - python3
+      - python3-pip
+
+- name: Install Tensorflow CPU and GPU
+  shell: pip3 install tensorflow
+
+- name: Test Tensorflow Installation
+  shell: python3 -c 'import tensorflow as tf; print(tf.__version__)'
+  ignore_errors: true
+  register: installtest
+
+- name: Tensorflow Install Success
+  debug:
+    msg: Tensorflow Successfully installed!
+  when: installtest.rc == 0
+
+- name: Tensorflow Install Failure
+  debug:
+    msg: Tensorflow Install Failed!
+  when: installtest.rc != 0
